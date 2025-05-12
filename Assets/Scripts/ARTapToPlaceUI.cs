@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public class ARTapToPlaceUI : MonoBehaviour
 {
-    public GameObject uiPrefab;  // Your UI panel prefab
+    public GameObject uiPrefab;  
     private ARRaycastManager raycastManager;
     private GameObject placedUI;
 
