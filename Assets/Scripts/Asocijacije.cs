@@ -15,20 +15,55 @@ public class AsocijacijeGame : MonoBehaviour
     public Column[] columns = new Column[4];
     public string finalSolution;
 
-    public Text[] clueTexts;       // 16 clue Texts (A1–D4)
-    public Text[] columnSolutions; // 4 Texts for A, B, C, D
-    public Text finalSolutionText; // Final solution Text
+    public Text[] clueTexts;         // 16 clue Texts (A1–D4)
+    public Text[] columnSolutions;   // 4 Texts for A, B, C, D
+    public Text finalSolutionText;   // Final solution Text
 
-    public InputField[] columnInputs; // 4 InputFields for A–D guesses
+    public InputField[] columnInputs;    // 4 InputFields for A–D guesses
     public InputField finalInput;
 
-    public Button[] clueButtons;   // 16 Buttons for clues
-    public Button[] checkColumnButtons; // 4 Buttons to check A–D
+    public Button[] clueButtons;         // 16 Buttons for clues
+    public Button[] checkColumnButtons;  // 4 Buttons to check A–D
     public Button checkFinalButton;
 
     private void Start()
     {
+        InitializeHardcodedData();
         UpdateUI();
+    }
+
+    private void InitializeHardcodedData()
+    {
+        // Column A - FRUIT
+        columns[0] = new Column
+        {
+            clues = new string[] { "Apple", "Banana", "Orange", "Grapes" },
+            solution = "Fruit"
+        };
+
+        // Column B - COLORS
+        columns[1] = new Column
+        {
+            clues = new string[] { "Red", "Blue", "Green", "Yellow" },
+            solution = "Color"
+        };
+
+        // Column C - ANIMALS
+        columns[2] = new Column
+        {
+            clues = new string[] { "Dog", "Cat", "Elephant", "Tiger" },
+            solution = "Animal"
+        };
+
+        // Column D - VEHICLES
+        columns[3] = new Column
+        {
+            clues = new string[] { "Car", "Bike", "Train", "Plane" },
+            solution = "Vehicle"
+        };
+
+        // Final solution - CATEGORIES
+        finalSolution = "Categories";
     }
 
     public void RevealClue(int index)
@@ -79,21 +114,27 @@ public class AsocijacijeGame : MonoBehaviour
             RevealFullColumn(col);
             columnSolutions[col].text = columns[col].solution;
         }
+
+        finalSolutionText.text = finalSolution;
     }
 
     private void UpdateUI()
     {
-        // Initially empty clues
         for (int i = 0; i < 16; i++)
         {
             clueTexts[i].text = "???";
+            clueButtons[i].interactable = true;
         }
 
         for (int i = 0; i < 4; i++)
         {
             columnSolutions[i].text = "???";
+            columnInputs[i].interactable = true;
+            checkColumnButtons[i].interactable = true;
         }
 
         finalSolutionText.text = "???";
+        finalInput.interactable = true;
+        checkFinalButton.interactable = true;
     }
 }
