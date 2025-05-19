@@ -1,11 +1,12 @@
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
+using UnityEngine.SceneManagement; 
 using System.Collections.Generic;
 
 public class ARTapToPlaceUI : MonoBehaviour
 {
-    public GameObject uiPrefab;  
+    public GameObject uiPrefab;
     private ARRaycastManager raycastManager;
     private GameObject placedUI;
 
@@ -27,9 +28,18 @@ public class ARTapToPlaceUI : MonoBehaviour
             if (raycastManager.Raycast(touchPos, hits, TrackableType.PlaneWithinPolygon))
             {
                 Pose hitPose = hits[0].pose;
+
+                // Save the placement pose for use in MainMenu scene
+                PlacementAnchor.Position = hitPose.position;
+                PlacementAnchor.Rotation = hitPose.rotation;
+
+                // Optionally instantiate something here (like a visual marker)
                 placedUI = Instantiate(uiPrefab, hitPose.position, hitPose.rotation);
-                placedUI.transform.LookAt(Camera.main.transform); // Make it face the user
-                placedUI.transform.Rotate(0, 180f, 0); // Optional flip
+                placedUI.transform.LookAt(Camera.main.transform);
+                placedUI.transform.Rotate(0, 180f, 0);
+
+                // Load MainMenu scene after placement
+                SceneManager.LoadScene("MainMenu"); //
             }
         }
     }

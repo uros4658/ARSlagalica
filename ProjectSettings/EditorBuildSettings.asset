@@ -9,8 +9,23 @@ EditorBuildSettings:
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
+    path: Assets/Scenes/SetGameField.unity
+    guid: 64fcdfe479cc3864aad0708d6c8b3005
+  - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: c6d0bf915245b0848aea0969b8818175
+  - enabled: 1
+    path: Assets/Scenes/Slagalica.unity
+    guid: c86af1fb81dc55644aef0b118113b89f
+  - enabled: 1
+    path: Assets/Scenes/MojBroj.unity
+    guid: 736625785fd20444bb6e85cb17eb3ac9
+  - enabled: 1
+    path: Assets/Scenes/Skocko.unity
+    guid: 82fa8dea2db822847a0096df0cf8f01f
+  - enabled: 1
+    path: Assets/Scenes/Asocijacije.unity
+    guid: b60de3f1f4c71cd4bb252a5a62acf2d1
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: d28cb5a4f7843fc40a848b31fb002d5b, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

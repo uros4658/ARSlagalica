@@ -1,4 +1,4 @@
-using UnityEngine;
+/*using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,11 +16,11 @@ public class SlagalicaGame : MonoBehaviour
     private bool timerRunning = true;
 
     private List<char> randomLetters = new List<char>();
-    private SlagalicaController controller;
+    /*private SlagalicaController controller;
 
     void Start()
     {
-        controller = new SlagalicaController(); // Your game logic controller
+      /*  controller = new SlagalicaController(); // Your game logic controller 
         GenerateLetters();
         StartCoroutine(Timer());
         SetupButtons();
@@ -121,3 +121,4 @@ public class SlagalicaGame : MonoBehaviour
         eraseButton.onClick.AddListener(EraseAll);
     }
 }
+*/
