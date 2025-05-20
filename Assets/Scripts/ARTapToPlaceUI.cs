@@ -1,15 +1,13 @@
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
-using UnityEngine.SceneManagement; 
 using System.Collections.Generic;
 
 public class ARTapToPlaceUI : MonoBehaviour
 {
-    public GameObject uiPrefab;
+    public GameObject uiPrefab; // Prefab to instantiate (e.g., PlacementReticle)
     private ARRaycastManager raycastManager;
     private GameObject placedUI;
-
     private static List<ARRaycastHit> hits = new List<ARRaycastHit>();
 
     void Start()
@@ -19,27 +17,38 @@ public class ARTapToPlaceUI : MonoBehaviour
 
     void Update()
     {
-        if (placedUI != null) return;
+        if (placedUI != null) return; // Only allow one placement
 
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
             Vector2 touchPos = Input.GetTouch(0).position;
 
+            // Raycast against all detected planes (horizontal + vertical if enabled)
             if (raycastManager.Raycast(touchPos, hits, TrackableType.PlaneWithinPolygon))
             {
                 Pose hitPose = hits[0].pose;
 
-                // Save the placement pose for use in MainMenu scene
+                // Save position and rotation globally if needed later
                 PlacementAnchor.Position = hitPose.position;
                 PlacementAnchor.Rotation = hitPose.rotation;
 
-                // Optionally instantiate something here (like a visual marker)
+                // Instantiate UI object at the hit location
                 placedUI = Instantiate(uiPrefab, hitPose.position, hitPose.rotation);
-                placedUI.transform.LookAt(Camera.main.transform);
-                placedUI.transform.Rotate(0, 180f, 0);
 
-                // Load MainMenu scene after placement
-                SceneManager.LoadScene("MainMenu"); //
+                // Rotate it to face the camera
+                placedUI.transform.LookAt(Camera.main.transform);
+                placedUI.transform.Rotate(0, 180f, 0); // flip to face user
+
+                // Optional: Attach to the detected plane to keep it stable
+                var anchor = hits[0].trackable as ARPlane;
+                if (anchor != null)
+                {
+                    placedUI.transform.SetParent(anchor.transform);
+                }
+
+                // IMPORTANT: Don't load another scene here unless required.
+                // If you really want to load the MainMenu scene, do it after a delay or via button press.
+                // SceneManager.LoadScene("MainMenu");
             }
         }
     }
